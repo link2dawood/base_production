@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+// Route::get('/register' , 'RegisterController@create');
 Route::get('/dashboard', 'DashboardController@index');
 Route::prefix('dashboard')->group(function () {
     /*
@@ -36,3 +37,10 @@ Route::prefix('dashboard')->group(function () {
 
     Route::post('/categories/update/_bulk'      , 'CategoryController@_bulk');
 });
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
