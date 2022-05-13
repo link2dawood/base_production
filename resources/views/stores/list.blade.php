@@ -19,16 +19,23 @@
             </div>
         </div>
         <div class="col-md-6" >
-           <a href="#data_modal" data-toggle="modal" data-url="{{url($module['action'].'/create')}}" data-action="data_modal" class="btn btn-success btn-sm m-btn" style="margin-bottom: 20px; float: right;">+ Add Category</a>
+           <a href="#data_modal" data-toggle="modal" data-url="{{url($module['action'].'/create')}}" data-action="data_modal" class="btn btn-success btn-sm m-btn" style="margin-bottom: 20px; float: right;">+ Add Store</a>
         </div>
 
         <div class="col-md-12">
            <table class="table table-bordered" id="editable" data-url="{{url($module['action'].'/edit')}}">
              <thead>
                <tr>
+                 {{-- <th scope="col"><input type="checkbox"></th> --}}
                  <th scope="col"># ({{$count}})</th>
-                 <th scope="col">Label</th>
-                 <th scope="col">Description</th>
+                 <th scope="col">Store Name</th>
+                 <th scope="col">Email</th>
+                 <th scope="col">Address</th>
+                 <th scope="col">City</th>
+                 <th scope="col">Country</th>
+                 <th scope="col">State</th>
+                 <th scope="col">Zip-Code</th>
+                 <th scope="col">CNIC</th>
                  <th scope="col">Action</th>
                </tr>
              </thead>
@@ -36,17 +43,24 @@
               @if($list['data'])
                  @foreach($list['data'] as $key=>$val)
                <tr>
+                 {{-- <td><input type="checkbox" name="user[]" value="19"></th> --}}
                  <td scope="row"></th>
-                 <td  data-input="text" data-field="label">{{$val['lable']}}</td>
-                 <td  data-input="textarea" data-field="description">{{$val['description']}}</td>
+                 <td  data-input="text" data-field="name">{{$val['name']}}</td>
+                 <td data-input="text" data-field="email">{{$val['email']}}</td>
+                 <td data-input="text" data-field="address">{{$val['address']}}</td>
+                 <td data-input="text" data-field="city">{{$val['city']}}</td>
+                 <td data-input="text" data-field="country">{{$val['country']}}</td>
+                 <td data-input="text" data-field="state">{{$val['state']}}</td>
+                 <td data-input="text" data-field="zip_code">{{$val['zip_code']}}</td>
+                 <td data-input="text" data-field="cnic">{{$val['cnic']}}</td>
                  <td>
-                   <a data-action="delete_record"  href="javascript:void(0);" data-url="{{url('categories/delete/'. $val['id'])}}" >Delete</a> | <a href="#data_modal" data-toggle="modal"  data-url="{{url('categories/edit/'. $val['id'])}}" data-action="data_modal"> Edit </a>
+                   <a data-action="delete_record"  href="javascript:void(0);" data-url="{{url('stores/delete/'. $val['id'])}}" >Delete</a> | <a href="#data_modal" data-toggle="modal"  data-url="{{url('stores/delete/'. $val['id'])}}" data-action="data_modal"> Edit </a>
                  </td>
                </tr>
                @endforeach
               @else
                  <tr>
-                   <td colspan="8" align="center">
+                   <td colspan="12" align="center">
                      <h5 style="text-align: center;"><strong>No {{$module['singular']}} found !</strong> <a href="#data_modal" data-toggle="modal" data-url="{{url($module['action'].'/create')}}" data-action="data_modal">+Add New</a></h5>
 
                    </td>
