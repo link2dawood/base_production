@@ -1,21 +1,17 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Categories;
-use Auth;
+use App\Models\Category;
 class CategoryController extends Controller
 {
     private $type     =  "categories";
     private $singular =  "Category";
     private $plural   =  "Categories";
     private $view     =  "categories.";
-    private $action   =  "/dashboard/categories";
-    private $db_key   =  "cat_id";
-    private $perpage = 2;
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    private $action   =  "/categories";
+    private $db_key   =  "category_id";
+    private $perpage = 100;
+    // public function __construct()
     /**
      * Show the application dashboard.
      *
@@ -53,8 +49,8 @@ class CategoryController extends Controller
         /*
         GET RECORDS
         */
-        $records   = new Categories;
-        $records   = $this->search($records,$request,$data)->orderBy('cat_id','DESC');
+        $records   = new Category;
+        // $records   = $this->search($records,$request,$data)->orderBy('category_id','DESC');
         /*
         GET TOTAL RECORD BEFORE BEFORE PAGINATE
         */
@@ -85,18 +81,10 @@ class CategoryController extends Controller
     }
     public function create(Request $request)
     {
-        if($request->input('label')){
+        if($request->isMethod('post')){
             $data = $request->all();
             $this->cleanData($data);
-            
-            $is_save             = Categories::where('label','=',
-                                                $data['label'])
-                                                ->count();
-            if($is_save > 0)    {
-                $response = array('flag'=>false,'msg'=>$this->singular.' with label already exist.');
-                echo json_encode($response); return;
-            }
-            $Areas         = new Categories;
+            $Areas         = new Category;
             $Areas->insert($data);
             $response = array('flag'=>true,'msg'=>$this->singular.' is added sucessfully.','action'=>'reload');
             echo json_encode($response); return;
@@ -117,7 +105,7 @@ class CategoryController extends Controller
             $this->cleanData($data);
 
             if(isset($data['label'])) {
-                $is_save             = Categories::where('label','=',
+                $is_save             = Category::where('label','=',
                                                     $data['label'])
                                                     ->where($this->db_key,'!=',
                                                     $id)
@@ -127,7 +115,7 @@ class CategoryController extends Controller
                     echo json_encode($response); return;
                 }
             }
-            $obj         = Categories::find($id);
+            $obj         = Category::find($id);
             $obj->update($data);
             $response = array('flag'=>true,'msg'=>$this->singular.' is updated sucessfully.','action'=>'reload');
             echo json_encode($response); return;
@@ -137,18 +125,18 @@ class CategoryController extends Controller
                     "page_heading"=>"Edit ".$this->singular,
                     "breadcrumbs"=>array("dashboard"=>"Dashboard","#"=>$this->plural." List"),
                     "action"=> url($this->action.'/edit/'.$id),
-                    "row" => Categories::find($id)
+                    "row" => Category::find($id)
                 );
         return view($this->view.'edit',$data);
     }
     public function delete($id) {
-        //Categories::destroy($id);
+        //Category::destroy($id);
         $response = array('flag'=>true,'msg'=>$this->singular.' has been deleted.');
         echo json_encode($response); return;
     }
     public function _bulk(Request $request) {
         $data = $request->all();
-        //Categories::destroy($id);
+        //Category::destroy($id);
         $response = array('flag'=>true,'msg'=>$this->singular.' has been deleted.','action'=>'reload');
         echo json_encode($response); return;
     }
