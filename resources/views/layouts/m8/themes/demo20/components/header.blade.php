@@ -21,7 +21,7 @@
                     <!--end::Heaeder navs toggle-->
                     <!--begin::Logo-->
                     <a href="/base/basejs_prod" class="d-flex align-items-center py-3">
-                        <img alt="Logo" src="{{ asset('m8/demo20/assets/media/logo.png') }}" class="w-100 rounded-circle" style="height: 65px; " />
+                        <img alt="Logo" src="{{ asset('m-logo.png') }}" class="w-100 rounded-circle" style="height: 65px; " />
                     </a>
                     <!--end::Logo-->
                     <div class="align-self-end" id="kt_brand_tabs">
