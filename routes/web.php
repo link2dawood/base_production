@@ -24,6 +24,21 @@ Route::get('/register', function () {
     return view('register');
 });   
 
+Route::get('/users'                    , 'UserController@list');
+    Route::post('/users'                    , 'UserController@create');
+
+    Route::get('/users/create'             , 'UserController@create');
+    Route::post('/users/create'            , 'UserController@create');
+
+    Route::get('/users/edit/{id?}'         , 'UserController@update');
+    Route::post('/users/edit/{id?}'        , 'UserController@update');
+
+    Route::get('/users/delete/{id?}'       , 'UserController@delete');
+
+    Route::post('/users/update/_bulk'      , 'UserController@_bulk');
+    // Route::get('/users/{id?}', 'UserController@show');
+    Route::get('/users/profile', 'UserController@profile');
+
 Auth::routes();
     Route::get('/stores'                    , 'StoreController@list');
     
@@ -60,6 +75,9 @@ Auth::routes();
     Route::get('/products/delete/{id?}'       , 'ProductController@delete');
 
     Route::post('/products/update/_bulk'      , 'ProductController@_bulk');
+
+    
+
     // end category
 // Route::get('/register' , 'RegisterController@create');
 Route::get('/dashboard', 'DashboardController@index');

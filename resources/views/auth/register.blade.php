@@ -75,9 +75,9 @@
     </div>
 </div>
 @endsection
- --}}
+--}}
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -96,42 +96,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <style type="text/css">
 
-        img{
-            width: 30%;
-        }
-        .op{
-            font-size: 15px;
-            color: darkgray;
-        }
-        input:focus { 
-            outline: red!important;
-            border: 2px solid red!important;
-            box-shadow:none!important;
-        }
-        .divider:after,
-        .divider:before {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: #eee;
-        }
-        .login-footer{
-            color: #637381;
-            font-weight: 450;
-            margin-right: 1rem;
-            text-decoration: none;
-            float: right;
-        }
-        .background-image{
-            background-image: url('{{ asset('bg1.jpg')}}');
-        }
-    </style>
+    img{
+        width: 30%;
+    }
+    .op{
+        font-size: 15px;
+        color: darkgray;
+    }
+    input:focus { 
+        outline: red!important;
+        border: 2px solid red!important;
+        box-shadow:none!important;
+    }
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .login-footer{
+        color: #637381;
+        font-weight: 450;
+        margin-right: 1rem;
+        text-decoration: none;
+        float: right;
+    }
+    .background-image{
+        background-image: url('{{ asset('bg1.jpg')}}');
+    }
+</style>
 </head>
 <body class="background-image">
 
     <div class="container">
         <div class="card my-4 col-sm-12 col-md-6" style="border-radius: 10px;">
             <div class="card-body px-4">
+               <form method="POST" action="{{ route('register') }}">
+                @csrf
                 <div class="row">
                     <div class="col-12">
                         <img class="my-4" alt="Log in to Mash." src="{{ asset('m_logo.png')}}">
@@ -141,17 +143,23 @@
                     <h3>Create a Mash. ID</h3>
                     <p class="op">The ecommerce platform made for you</p>
                 </div>
-                <label>Email</label>
-                <input class="form-control" type="text" name="text">
+                <label>{{ __('Name') }}</label>
+                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" >
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 <div class="form-outline mb-4">
                     <div class="row mt-3">
-                        <div class="col-6">
-                            <label>First Name</label>
-                            <input class="form-control mb-4" type="text" name="text">
-                        </div>
-                        <div class="col-6">
-                            <label>Last Name</label>
-                            <input class="form-control mb-4" type="text" name="text">
+                        <div class="col-12">
+                            <label>{{ __('E-Mail Address') }}</label>
+                            <input class="form-control mb-4 @error('email') is-invalid @enderror" type="text" name="name" value="{{ old('email') }}">
+                            @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                     <div>
@@ -160,15 +168,20 @@
                                 <p class="op">Enter your first and last name as they appear on your government-issued ID.</p>
                             </div>
                             <div>
-                                <label>Password</label>
-                                <input class="form-control" type="Password" name="Password">
+                                <label>{{ __('Password') }}</label>
+                                <input class="form-control @error('password') is-invalid @enderror" type="Password" name="Password" >
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div>
-                                <label class="mt-2">Confirm Password</label>
-                                <input class="form-control" type="Password" name="Password">
+                                <label class="mt-2">{{ __('Confirm Password') }}</label>
+                                <input class="form-control" type="Password" name="password_confirmation" >
                             </div>
                             <div>
-                                <button type="button" class="btn text-white btn-block mt-3" style="background-color:#e22d2c ;">Create Shopify ID</button>
+                                <button type="button" class="btn text-white btn-block mt-3" style="background-color:#e22d2c ;">{{ __('Register') }}</button>
                             </div>
                         </div>
                         <div class="text-lg-start mt-3 font-weight-light">
@@ -177,7 +190,7 @@
                             </div>
                         </div>
                         <div class="text-lg-start mt-3 font-weight-light">
-                            <p class="small fw-bold mt-2 pt-1 mb-0">Already have a Mash ID ?<a href="{{url('/user-login')}}"
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Already have a Mash ID ?<a href="{{url('/login')}}"
                                 class="link-danger" style="color: red;"> Login</a></p>
                             </div>
                         </div>
